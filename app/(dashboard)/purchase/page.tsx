@@ -56,8 +56,8 @@ const invoices = [
 
 export default function PurchaseIndex() {
   return (
-    <div className="">
-      <h2 className="text-2xl mb-3" >Purchase History</h2>
+    <div className="wrapper">
+      <h2 className="text-2xl mb-3">Purchase History</h2>
       <Table className=" border">
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>

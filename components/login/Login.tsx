@@ -17,14 +17,14 @@ import { Label } from "@/components/ui/label";
 
 export default function Login() {
   const router = useRouter();
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = React.useState<any>("");
   const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [error, setError] = React.useState(null);
   const [show, setShow] = React.useState(false);
 
   const inputSchema = z.object({
-    email: z.string().min(3).max(10),
-    password: z.string().min(3).max(10),
+    email: z.string().min(3).email(),
+    password: z.string().min(8),
   });
 
   const handleShow = () => {
@@ -37,6 +37,7 @@ export default function Login() {
       if (!parseInput.success) {
         console.log("error", parseInput.error.flatten().fieldErrors);
         let err: any = parseInput.error.flatten().fieldErrors;
+        console.log("err", err);
         setError(err);
       } else {
         router.push(`/otp?email=${email}`);
@@ -59,9 +60,15 @@ export default function Login() {
                 <Input
                   id="email"
                   placeholder="Enter your email address"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e: any) => setEmail(e.target.value)}
                 />
-                {/* {error ? error?.email.toString() : "no error found"} */}
+                {/* @ts-ignore */}
+                {error && error?.email && (
+                  <p className="text-sm text-red-300 ml-1">
+                    {/* @ts-ignore */}
+                    {error?.email.toString()}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col space-y-1.5">
@@ -98,6 +105,13 @@ export default function Login() {
                     </svg>
                   </div>
                 </div>
+                {/* @ts-ignore */}
+                {error && error?.password && (
+                  <p className="text-sm text-red-300 ml-1">
+                    {/* @ts-ignore */}
+                    {error?.password.toString()}
+                  </p>
+                )}
               </div>
             </div>
           </form>

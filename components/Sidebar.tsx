@@ -9,14 +9,14 @@ export default function Sidebar({ children }: any) {
     setShowOne(!showOne);
   };
   return (
-    <div className="flex">
-      <div className="flex flex-col h-screen p-3 bg-white shadow w-64 shrink-0">
+    <div className="flex ">
+      <div className="flex flex-col h-screen p-3 bg-slate-200 shadow w-64 shrink-0 ">
         <div className="space-y-3">
-          <div className="flex items-center">
-            <h2 className="text-xl font-bold">Kartat Dashboard</h2>
+          <div className="flex items-center justify-center">
+            <h2 className="text-xl font-bold ">Kartat Dashboard</h2>
           </div>
           <div className="flex-1">
-            <ul className="pt-10 pb-4 space-y-1 text-sm">
+            <ul className="pt-4 pb-4 space-y-1 text-sm">
               <li className="rounded-sm">
                 <Link
                   href="/dashboard"
@@ -123,23 +123,22 @@ export default function Sidebar({ children }: any) {
 
                 {showOne && (
                   <ul id="dropdown-1" className=" py-2 space-y-2">
-                    <li >
+                    <li>
                       <Link
-                      className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-12   bg-slate-100"
+                        className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-12   bg-slate-100"
                         href="/purchase"
                       >
                         Purchase
                       </Link>
                     </li>
-                    <li >
+                    <li>
                       <Link
-                      className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-12   bg-slate-100"
+                        className="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-12   bg-slate-100"
                         href="/purchase"
                       >
                         Purchase
                       </Link>
                     </li>
-
                   </ul>
                 )}
               </li>
@@ -170,16 +169,18 @@ export default function Sidebar({ children }: any) {
         </div>
       </div>
 
-      <div className=" w-full">
-        <div className="bg-slate-700 py-2 px-6 flex justify-between items-center text-white">
-          <div className="">
-            <h3 className="text-lg">Welcome to application</h3>
-          </div>
-          <div className="">
-            <UserDropdown />
+      <div className=" w-full ">
+        <div className="bg-slate-700 pb-20">
+          <div className=" py-2 px-6 flex justify-between items-center text-white">
+            <div className="">
+              <h3 className="text-lg">Welcome to application</h3>
+            </div>
+            <div className="">
+              <UserDropdown />
+            </div>
           </div>
         </div>
-        <div className="p-6">{children}</div>
+        <div className="p-6 ">{children}</div>
       </div>
     </div>
   );
