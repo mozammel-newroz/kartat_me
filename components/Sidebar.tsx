@@ -2,6 +2,8 @@
 import Link from "next/link";
 import UserDropdown from "./appbar/UserDropdown";
 import { useState } from "react";
+import { logout } from "@/Utils/logout";
+import Image from "next/image";
 
 export default function Sidebar({ children }: any) {
   const [showOne, setShowOne] = useState(false);
@@ -13,7 +15,9 @@ export default function Sidebar({ children }: any) {
       <div className="flex flex-col h-screen p-3 bg-slate-200 shadow w-64 shrink-0 ">
         <div className="space-y-3">
           <div className="flex items-center justify-center">
-            <h2 className="text-xl font-bold ">Kartat Dashboard</h2>
+            <h2 className="text-xl font-bold ">
+              <Image src="/logo.png" alt="" width={115} height={28} />
+            </h2>
           </div>
           <div className="flex-1">
             <ul className="pt-4 pb-4 space-y-1 text-sm">
@@ -42,7 +46,7 @@ export default function Sidebar({ children }: any) {
 
               <li className="rounded-sm">
                 <Link
-                  href="/panel/setting"
+                  href="/profile"
                   className="flex items-center p-2 space-x-3 rounded-md  hover:bg-yellow-50 bg-slate-100 transition-all"
                 >
                   <svg
@@ -64,9 +68,36 @@ export default function Sidebar({ children }: any) {
                       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
-                  <span>Settings</span>
+                  <span>Profile</span>
                 </Link>
               </li>
+              {/* <li className="rounded-sm">
+                <Link
+                  href="/generate-client"
+                  className="flex items-center p-2 space-x-3 rounded-md  hover:bg-yellow-50 bg-slate-100 transition-all"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <span>Generate Client</span>
+                </Link>
+              </li> */}
 
               <li className="rounded-sm">
                 <Link
@@ -145,6 +176,8 @@ export default function Sidebar({ children }: any) {
               <li className="rounded-sm">
                 <Link
                   href="/"
+                  role="button"
+                  onClick={() => logout()}
                   className="flex items-center p-2 space-x-3 rounded-md  hover:bg-yellow-50 bg-slate-100 transition-all"
                 >
                   <svg

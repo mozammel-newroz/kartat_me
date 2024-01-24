@@ -75,7 +75,9 @@ export default function Login() {
           console.log("err", error);
         }
       }
-    } catch (error) {}
+    } catch (error: any) {
+      console.log("err", error);
+    }
     setLoading(false);
   };
 
@@ -203,10 +205,8 @@ export default function Login() {
         )}
 
         {!otpScreen && (
-          <CardFooter className="flex justify-between">
-            <Button variant="outline" className="bg-secondary ">
-              Cancel
-            </Button>
+          <CardFooter className="flex justify-end">
+
             <Button
               onClick={() => {
                 handleContinue();
@@ -220,7 +220,11 @@ export default function Login() {
 
         {otpScreen && (
           <CardFooter className="flex justify-between">
-            <Button variant="outline" className="bg-secondary ">
+            <Button
+              variant="outline"
+              className="bg-secondary "
+              onClick={() => setOtpScreen(false)}
+            >
               Cancel
             </Button>
             <Button

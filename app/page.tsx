@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Login />
-      <Toaster />
+      <Toaster position="top-right" richColors />
     </>
   );
 }
