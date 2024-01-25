@@ -47,7 +47,7 @@ const Generate = () => {
   // }, []);
   return (
     <div className="flex justify-center">
-      <Card className="w-[450px]">
+      <Card className="w-[450px] mt-[200px]">
         <CardHeader className="flex flex-col  gap-4">
           {!gScreen && (
             <div className="flex flex-col items-center gap-4">
