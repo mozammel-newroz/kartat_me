@@ -14,11 +14,40 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { bearerToken } from "@/Utils/Token";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 const Profile = () => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [editScreen, setEditScreen] = useState(false);
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+
+  const updateData = async () => {
+    setLoading(true);
+    try {
+      const token = await bearerToken();
+      let data = {
+        name,
+        mobile,
+      };
+      let res = await axios({
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/vendor/profile`,
+        method: "put",
+        data: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("res:", res);
+    } catch (error) {
+      console.log("err", error);
+    }
+    setLoading(false);
+  };
+
   const getData = async () => {
     setLoading(true);
     try {
@@ -34,6 +63,8 @@ const Profile = () => {
       });
       console.log("res:", res.data.data);
       setData(res.data.data);
+      setName(res.data.data?.name);
+      setMobile(res.data.data?.mobile);
     } catch (error) {
       console.log("err", error);
     }
@@ -71,8 +102,8 @@ const Profile = () => {
                       <path
                         d="M11.8536 1.14645C11.6583 0.951184 11.3417 0.951184 11.1465 1.14645L3.71455 8.57836C3.62459 8.66832 3.55263 8.77461 3.50251 8.89155L2.04044 12.303C1.9599 12.491 2.00189 12.709 2.14646 12.8536C2.29103 12.9981 2.50905 13.0401 2.69697 12.9596L6.10847 11.4975C6.2254 11.4474 6.3317 11.3754 6.42166 11.2855L13.8536 3.85355C14.0488 3.65829 14.0488 3.34171 13.8536 3.14645L11.8536 1.14645ZM4.42166 9.28547L11.5 2.20711L12.7929 3.5L5.71455 10.5784L4.21924 11.2192L3.78081 10.7808L4.42166 9.28547Z"
                         fill="currentColor"
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                       ></path>
                     </svg>
                   </Button>
@@ -91,13 +122,12 @@ const Profile = () => {
         )}
         {editScreen && (
           <motion.div
-          initial={{ x: "50px", opacity: 0 }}
-          animate={{ x: "0", opacity: 1 }}
-        >
-
+            initial={{ x: "50px", opacity: 0 }}
+            animate={{ x: "0", opacity: 1 }}
+          >
             <Card>
               <CardHeader>
-              <h2 className="text-2xl mb-3">Update Profile Information</h2>
+                <h2 className="text-2xl mb-3">Update Profile Information</h2>
                 <CardDescription>Update your information</CardDescription>
               </CardHeader>
               <CardContent>
@@ -105,12 +135,19 @@ const Profile = () => {
                   <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col space-y-1.5">
                       <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="Enter your name" />
+                      <Input
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Enter your name"
+                      />
                     </div>
                     <div className="flex flex-col space-y-1.5">
                       <Label htmlFor="name">Mobile</Label>
                       <Input
                         id="mobile"
+                        value={mobile}
+                        onChange={(e) => setMobile(e.target.value)}
                         placeholder="Enter your mobile number"
                       />
                     </div>
@@ -124,7 +161,12 @@ const Profile = () => {
                 >
                   Cancel
                 </Button>
-                <Button>Update</Button>
+                <Button onClick={updateData}>
+                  {loading && (
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  Update
+                </Button>
               </CardFooter>
             </Card>
           </motion.div>

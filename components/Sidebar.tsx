@@ -203,7 +203,7 @@ export default function Sidebar({ children }: any) {
       </div>
 
       <div className=" w-full ">
-        <div className="bg-slate-700 pb-20">
+        <div className="topBar">
           <div className=" py-2 px-6 flex justify-between items-center text-white">
             <div className="">
               <h3 className="text-lg">Welcome to application</h3>

@@ -61,3 +61,7 @@
 .wrapper {
   @apply relative bg-white p-6 rounded-md  mt-[-100px];
 }
+.topBar {
+  @apply pb-20;
+  background: linear-gradient(#334155, #94a3b8);
+}

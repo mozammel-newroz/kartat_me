@@ -131,7 +131,7 @@ export default function LoginLayout() {
   };
 
   return (
-    <main className="flex h-dvh bg-slate-400 justify-center items-center">
+    <main className="flex h-dvh bg-slate-500 justify-center items-center">
       {!otpScreen && (
         <motion.div
           initial={{ x: "-50px", opacity: 0 }}
