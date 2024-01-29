@@ -1,10 +1,10 @@
 import React from "react";
-import PurchaseList from "./PurchaseList";
+import TransactionList from "./TransactionList";
 
 const page = () => {
   return (
     <div className="wrapper">
-      <PurchaseList />
+      <TransactionList />
     </div>
   );
 };

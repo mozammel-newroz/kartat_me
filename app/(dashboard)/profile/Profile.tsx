@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { bearerToken } from "@/Utils/Token";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { toast } from "sonner";
 
 const Profile = () => {
   const [data, setData] = useState<any>(null);
@@ -41,9 +42,14 @@ const Profile = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log("res:", res);
-    } catch (error) {
-      console.log("err", error);
+      if (res.data.status) {
+        getData()
+        toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
     setLoading(false);
   };
@@ -159,7 +165,7 @@ const Profile = () => {
                   variant="outline"
                   onClick={() => setEditScreen(!editScreen)}
                 >
-                  Cancel
+                  Back
                 </Button>
                 <Button onClick={updateData}>
                   {loading && (
