@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+"use client";
+import { getCookie } from "cookies-next";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,10 +16,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { logout } from "@/Utils/logout";
 
 export default function DropdownMenuDemo() {
+  const [name, setName] = useState("");
+
+  const getName = () => {
+    let b: any = getCookie("name");
+    setName(b);
+  };
+
+  useEffect(() => {
+    getName();
+  }, []);
   return (
-    <DropdownMenu>
+    <div className="flex items-center gap-2">
+      {name}
+      <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <span className="bg-gray-100 text-slate-700  p-2 rounded-full cursor-pointer ">
           <svg
@@ -56,7 +72,7 @@ export default function DropdownMenuDemo() {
               </svg>
             </span>
 
-            <p>My Account</p>
+            <p>{name}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -78,12 +94,13 @@ export default function DropdownMenuDemo() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
-        <Link href="/">
+        <Link role="button" onClick={() => logout()} href="/">
           <DropdownMenuItem>
             Log out <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </Link>
       </DropdownMenuContent>
     </DropdownMenu>
+    </div>
   );
 }

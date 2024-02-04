@@ -63,5 +63,6 @@
 }
 .topBar {
   @apply pb-20;
-  background: linear-gradient(#334155, #94a3b8);
+  /* background: linear-gradient(#334155, #94a3b8); */
+  background: linear-gradient(#0d9488, #14b8a6);
 }

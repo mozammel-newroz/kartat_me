@@ -25,9 +25,9 @@ import "../../pagination.css";
 import TableLoading from "../TableLoading";
 import { Input } from "@/components/ui/input";
 
-const PurchaseList = () => {
+const OperatorList = () => {
   const [bundleList, setBundleList] = useState([]);
-  const [operatorList, setOperatorList] = useState([]);
+  const [operatorLisO, setOperatorList] = useState([]);
 
   const [transaction_id, setTransaction_id] = useState("");
   const [operator_id, setOperator_id] = useState("");
@@ -45,9 +45,9 @@ const PurchaseList = () => {
 
     try {
       const token = await bearerToken();
-      const uri = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/statement`);
+      const uri = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/operator`);
       uri.searchParams.append("page", page);
-      uri.searchParams.append("transaction_id", transaction_id);
+      // uri.searchParams.append("transaction_id", transaction_id);
       // uri.searchParams.append("operator_id", operator_id);
       // uri.searchParams.append("bundle_id", bundle_id);
 
@@ -69,77 +69,75 @@ const PurchaseList = () => {
     setLoading(false);
   };
 
-  const getCancelData = async () => {
-    setLoading(true);
+  // const getCancelData = async () => {
+  //   setLoading(true);
 
-    try {
-      const token = await bearerToken();
-      const uri = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/statement`);
+  //   try {
+  //     const token = await bearerToken();
+  //     const uri = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/statement`);
 
-      let res = await axios({
-        url: `${uri}`,
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      setTotal(res.data?.data?.total);
-      setPageSize(res.data?.data?.per_page);
-      setData(res.data?.data?.data);
-    } catch (error) {
-      console.log("err", error);
-    }
-    setLoading(false);
-  };
-  const getInitData = async () => {
-    setLoading(true);
-    setSearchLoading(true);
-    setPage("1");
-    try {
-      const token = await bearerToken();
-      const uri = new URL(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/transaction`
-      );
+  //     let res = await axios({
+  //       url: `${uri}`,
+  //       method: "get",
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     setTotal(res.data?.data?.total);
+  //     setPageSize(res.data?.data?.per_page);
+  //     setData(res.data?.data?.data);
+  //   } catch (error) {
+  //     console.log("err", error);
+  //   }
+  //   setLoading(false);
+  // };
+  // const getInitData = async () => {
+  //   setLoading(true);
+  //   setSearchLoading(true);
+  //   setPage("1");
+  //   try {
+  //     const token = await bearerToken();
+  //     const uri = new URL(
+  //       `${process.env.NEXT_PUBLIC_BASE_URL}/api/transaction`
+  //     );
 
-      uri.searchParams.append("transaction_id", transaction_id);
-      // uri.searchParams.append("operator_id", operator_id);
-      // uri.searchParams.append("bundle_id", bundle_id);
+  //     uri.searchParams.append("transaction_id", transaction_id);
 
-      let res = await axios({
-        url: `${uri}`,
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      setTotal(res.data?.data?.total);
-      setPageSize(res.data?.data?.per_page);
-      setData(res.data?.data?.data);
-    } catch (error) {
-      console.log("err", error);
-    }
-    setLoading(false);
-    setSearchLoading(false);
-  };
+  //     let res = await axios({
+  //       url: `${uri}`,
+  //       method: "get",
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     setTotal(res.data?.data?.total);
+  //     setPageSize(res.data?.data?.per_page);
+  //     setData(res.data?.data?.data);
+  //   } catch (error) {
+  //     console.log("err", error);
+  //   }
+  //   setLoading(false);
+  //   setSearchLoading(false);
+  // };
 
   const handlePageChange = (e: any) => {
     console.log("e", e);
     setPage(e);
   };
 
-  const handleSearch = () => {
-    setPage("1");
-    getInitData();
-  };
+  // const handleSearch = () => {
+  //   setPage("1");
+  //   getInitData();
+  // };
 
-  const handleCancel = () => {
-    setTransaction_id("");
-    getCancelData();
-  };
+  // const handleCancel = () => {
+  //   setTransaction_id("");
+  //   getCancelData();
+  // };
 
   useEffect(() => {
     getData();
@@ -149,8 +147,8 @@ const PurchaseList = () => {
     <div>
       <div className="shadow-md p-2 border  rounded-md mb-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-xl">Statement History</h2>
-          <div className=" flex gap-3 items-center">
+          <h2 className="text-xl">Operator List</h2>
+          {/* <div className=" flex gap-3 items-center">
             <Input
               type="text"
               placeholder="Transaction Id"
@@ -158,34 +156,6 @@ const PurchaseList = () => {
               onChange={(e) => setTransaction_id(e.target.value)}
             />
 
-            {/* <Select onValueChange={(field) => setOperator_id(field)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Operator Id" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {operatorList.map((item: any, index: number) => (
-                    <SelectItem value={item?.id} key={index}>
-                      {item?.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            <Select onValueChange={(field) => setBundle_id(field)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Bundle Id" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {bundleList.map((item: any, index: number) => (
-                    <SelectItem value={item?.id} key={index}>
-                      {item?.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select> */}
             <div
               className="text-gray-400 hover:text-gray-300 cursor-pointer "
               role="button"
@@ -226,20 +196,17 @@ const PurchaseList = () => {
                 ></path>
               </svg>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
       <Table className=" border">
         <TableHeader>
           <TableRow>
-            <TableHead>Vendor Trx Id</TableHead>
-            <TableHead>before_balance</TableHead>
-            <TableHead>after_balance</TableHead>
-            <TableHead>amount</TableHead>
-            <TableHead>cost</TableHead>
-            <TableHead>profit</TableHead>
-            <TableHead>status</TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Category Name</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead>Created At</TableHead>
           </TableRow>
         </TableHeader>
@@ -247,12 +214,9 @@ const PurchaseList = () => {
           {!loading &&
             data?.map((item: any, index: number) => (
               <TableRow key={index}>
-                <TableCell>{item?.transaction?.vendor_trx_id}</TableCell>
-                <TableCell>{item.before_balance}</TableCell>
-                <TableCell>{item.after_balance}</TableCell>
-                <TableCell>{item.amount}</TableCell>
-                <TableCell>{item?.cost}</TableCell>
-                <TableCell>{item?.profit}</TableCell>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>{item.description}</TableCell>
+                <TableCell>{item.category?.name}</TableCell>
                 <TableCell>
                   {item?.status ? (
                     <svg
@@ -312,4 +276,4 @@ const PurchaseList = () => {
   );
 };
 
-export default PurchaseList;
+export default OperatorList;

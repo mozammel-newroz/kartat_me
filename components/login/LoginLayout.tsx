@@ -9,6 +9,7 @@ import { object, z } from "zod";
 import OtpInput from "react-otp-input";
 import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons";
+
 import {
   Card,
   CardContent,
@@ -22,6 +23,7 @@ import { Label } from "@/components/ui/label";
 
 import OnSubmit from "./OnSubmit";
 import Image from "next/image";
+import { hasCookie } from "cookies-next";
 
 export default function LoginLayout() {
   const router = useRouter();
@@ -102,7 +104,7 @@ export default function LoginLayout() {
         reference,
         otp,
       };
-      console.log('send data', data)
+      console.log("send data", data);
       let res = await axios({
         url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/verify`,
         method: "post",
@@ -118,17 +120,29 @@ export default function LoginLayout() {
       toast.error(res.data.message);
       if (res.data.status) {
         OnSubmit(res.data);
+        setTimeout(() => {
+          router.push(`/dashboard`);
+        }, 100);
         // cookiesList.set('token', res.data.token )
         // cookiesList.set('email', res.data.email , { secure: true })
         // cookiesList.set('name', res.data.name , { secure: true })
-
-        router.push(`/dashboard`);
       }
     } catch (error) {
       console.log("err", error);
     }
     setLoading(false);
   };
+
+  const goTo = () => {
+    let has = hasCookie("token");
+    if (has) {
+      router.push("/dashboard");
+    }
+  };
+
+  React.useLayoutEffect(() => {
+    goTo();
+  }, []);
 
   return (
     <main className="flex h-dvh bg-slate-500 justify-center items-center">

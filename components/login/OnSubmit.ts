@@ -10,6 +10,8 @@ const OnSubmit = ({ data }: dataprops) => {
   cookiesList.set("token", data.token, { secure: true });
   cookiesList.set("email", data.email, { secure: true });
   cookiesList.set("name", data.name, { secure: true });
+  cookiesList.set("balance", data.account?.balance, { secure: true });
+
 
   return false;
 };
